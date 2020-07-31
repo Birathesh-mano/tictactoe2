@@ -13,15 +13,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //create the variables we want to use
     private Button[][] buttons = new Button[4][4];
 
-    private boolean player1Turn = true;
-
-    private int roundCount;
-
     private int player1score;
     private int player2score;
 
     private TextView textViewPlayer1;
     private TextView textViewPlayer2;
+
+    private boolean player1Turn = true;
+
+    private int turnNumber;
+
+    
+
+   
 
 
 
@@ -95,20 +99,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     // if the spot is already taken then we do not want to let people click on it
-    public void onClick(View v) {
-        if (!((Button) v).getText().toString().equals("")){
+    public void onClick(View view) {
+        if (!((Button) view).getText().toString().equals("")){
             return;
         }
 
 
 //filling in the board with X and O
         if (player1Turn) {
-            ((Button) v).setText("X");
+            ((Button) view).setText("X");
         } else {
-            ((Button) v).setText("O");
+            ((Button) view).setText("O");
         }
 
-        roundCount++;
+        turnNumber++;
 
         if (checkWin()) {
             if (player1Turn) {
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 p2Win();
             }
 
-        } else if (roundCount == 16) {
+        } else if (turnNumber == 16) {
             tie();
         } else {
             player1Turn = !player1Turn;
@@ -200,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         //check for a tie by checking if 16 rounds have passed
         private void tie() {
-            if (roundCount==16){
+            if (turnNumber==16){
             Toast.makeText(this, "Yall tied", Toast.LENGTH_SHORT).show();
         }}
 
@@ -209,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViewPlayer1.setText("P1: " + player1score);
             textViewPlayer2.setText("P2: " + player2score);
         }
-        //make board go back to normal after a full match or the reset button that is not fully done
+        //make board go back to normal after  a full match or the reset button that is not fully done
         private void resetBoard() {
             int i = 0;
             int j = 0;
@@ -220,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 i++;
             }
-        roundCount = 0;
+        turnNumber = 0;
         player1Turn = true;
     }
 }

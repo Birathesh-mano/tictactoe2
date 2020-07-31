@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+//create the variables we want to use
     private Button[][] buttons = new Button[4][4];
 
     private boolean player1Turn = true;
@@ -94,13 +94,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
+    // if the spot is already taken then we do not want to let people click on it
     public void onClick(View v) {
         if (!((Button) v).getText().toString().equals("")){
             return;
         }
 
 
-//filling in the board
+//filling in the board with X and O
         if (player1Turn) {
             ((Button) v).setText("X");
         } else {
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             player1Turn = !player1Turn;
         }
     }
-
+//check for a winner, do this by comparing the 1st spot with the all other spots needed to win and see if they are in the same location. then check if
     private boolean checkWin() {
         String[][] board = new String[4][4];
         int i = 0;
@@ -182,26 +183,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
+//check for a player 1 win
         private void p1Win() {
             player1score++;
             Toast.makeText(this,"Player 1 is da winner", Toast.LENGTH_SHORT).show();;
             updatePointText();
             resetBoard();
         }
+
+        //check for a p2 win
         private void p2Win() {
             player2score++;
             Toast.makeText(this,"Player 2 is da winner", Toast.LENGTH_SHORT).show();
             updatePointText();
             resetBoard();
         }
+        //check for a tie by checking if 16 rounds have passed
         private void tie() {
+            if (roundCount==16){
             Toast.makeText(this, "Yall tied", Toast.LENGTH_SHORT).show();
-        }
+        }}
+
+        // increase players score after a win
         private void updatePointText() {
             textViewPlayer1.setText("P1: " + player1score);
             textViewPlayer2.setText("P2: " + player2score);
         }
+        //make board go back to normal after a full match or the reset button that is not fully done
         private void resetBoard() {
             int i = 0;
             int j = 0;

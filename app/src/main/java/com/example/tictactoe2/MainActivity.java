@@ -1,5 +1,5 @@
 package com.example.tictactoe2;
-
+//Author: Birathesh Manoharan trademarked by
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -26,14 +26,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
  // initialize all the buttons and textviews.
         textViewPlayer1 = findViewById(R.id.text_view_p1);
         textViewPlayer2 = findViewById(R.id.text_view_p2);
 
-        buttons[0][0] = findViewById(R.id.button_00);
+
+
+        buttons[0][0] = findViewById(getResources().getIdentifier("button_00", "id",getPackageName()));
+        buttons[0][0].setOnClickListener(this);
         buttons[0][1] = findViewById(R.id.button_01);
         buttons[0][2] = findViewById(R.id.button_02);
         buttons[0][3] = findViewById(R.id.button_03);
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons[3][2] = findViewById(R.id.button_32);
         buttons[3][3] = findViewById(R.id.button_33);
 
-        buttons[0][0].setOnClickListener(this);
+
         buttons[0][1].setOnClickListener(this);
         buttons[0][2].setOnClickListener(this);
         buttons[0][3].setOnClickListener(this);
@@ -89,17 +92,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @SuppressLint("SetTextI18n")
+
     @Override
-    public void onClick(View view) {
-        if (!((Button) view).getText().toString().equals("")) {
+    public void onClick(View v) {
+        if (!((Button) v).getText().toString().equals("")){
             return;
         }
+
+
 //filling in the board
         if (player1Turn) {
-            ((Button) view).setText("X");
+            ((Button) v).setText("X");
         } else {
-            ((Button) view).setText("O");
+            ((Button) v).setText("O");
         }
 
         roundCount++;
